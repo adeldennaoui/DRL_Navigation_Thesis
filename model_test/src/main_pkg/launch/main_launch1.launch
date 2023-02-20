@@ -1,0 +1,27 @@
+<launch>
+<arg name="gui" value="true"/>
+
+   <!-- Gazebo  -->
+  <include file="$(find main_pkg)/launch/empty_world.launch" />
+
+  <!-- Robot with diff drive -->
+  <group ns="robot1">
+    <param name="tf_prefix" value="r1" />
+    <include file="$(find main_pkg)/launch/pioneer3dx.gazebo1.launch">
+      <arg name="robot_name" value="r1" />
+      <arg name="robot_position" value="-x 4.0 -y 4.0 -z 0.01 -R 0 -P 0 -Y +0.0" />
+    </include>
+  </group>
+
+  <group ns="robot2">
+    <param name="tf_prefix" value="r2" />
+    <include file="$(find main_pkg)/launch/pioneer3dx.gazebo2.launch">
+      <arg name="robot_name" value="r2" />
+      <arg name="robot_position" value="-x 3.0 -y 1.0 -z 0.01 -R 0 -P 0 -Y +0.0" />
+    </include>
+  </group>
+
+  <!-- RVIZ -->
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find main_pkg)/launch/multirobot.rviz" />
+
+</launch>

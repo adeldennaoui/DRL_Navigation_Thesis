@@ -1,0 +1,17 @@
+<launch>
+<arg name="gui" value="true"/>
+
+   <!-- Gazebo  -->
+  <include file="$(find main_pkg)/launch/empty_world.launch" />
+
+  <!-- Robot with diff drive -->
+  <include file="$(find main_pkg)/launch/pioneer3dx.gazebo.launch">
+    <arg name="robot_name" value="r1" />
+    <arg name="robot_position" value="-x 4.0 -y 4.0 -z 0.01 -R 0 -P 0 -Y +0.0" />
+  </include>
+
+
+  <!-- RVIZ -->
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find main_pkg)/launch/pioneer3dx.rviz" />
+
+</launch>
