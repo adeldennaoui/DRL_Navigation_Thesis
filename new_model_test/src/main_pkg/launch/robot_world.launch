@@ -1,0 +1,31 @@
+<launch>
+
+  <!-- defining initial arguments regarding the robot -->
+  <arg name="robot_name" default="p3dx"/>
+  <arg name="robot_position" default="-x 0.0 -y 0.0 -z 0.01" />
+
+  <!-- launching the gazebo world -->
+  <include file="$(find main_pkg)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find main_pkg)/launch/TD3_2.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+    <arg name="verbose" value="false"/>
+  </include>
+
+  <!-- describing the robot ; xacro  -->
+  <param name="robot_description" command="$(find xacro)/xacro '$(find main_pkg)/xacro/p3dx/pioneer3dx.xacro'" />
+
+  <!-- spawning the URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model $(arg robot_name) -param robot_description $(arg robot_position) "/>
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="30.0"/>
+  </node>
+  
+  <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher">
+      <param name="publish_frequency" type="double" value="30.0"/>
+  </node>
+  
+</launch>

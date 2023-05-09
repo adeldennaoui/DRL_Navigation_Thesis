@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="pioneer3dx" >
+
+  <!-- Import Rviz colors -->
+  <xacro:include filename="$(find main_pkg)/xacro/materials.xacro" />
+
+  <!-- Import robot -->
+  <xacro:include filename="$(find main_pkg)/xacro/p3dx/pioneer3dx_body1.xacro"/>
+  <xacro:pioneer3dx_body1 name="chassis1" parent="base_link1" meshes="package://gazebo_plugins/test/multi_robot_scenario/meshes/p3dx"/>
+
+  <!-- Laser -->
+  <xacro:include filename="$(find main_pkg)/xacro/laser/hokuyo1.xacro"/>
+  <xacro:laser1 name="front_laser1" parent="chassis1" xyz="0.125 0 0.25" rpy="0 0 0" meshes="package://gazebo_plugins/test/multi_robot_scenario/meshes/laser"/>
+
+  <xacro:include filename="$(find main_pkg)/xacro/camera/new_camera1.xacro"/>
+  <xacro:camera1 name="camera1" parent="chassis1" xyz="0.025 -0.015 0.32" rpy="0 0 0"/>
+ 
+  <!-- Velodyne -->
+  <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf1.xacro"/>
+  <xacro:VLP-161 parent="base_link1" name="velodyne1" topic="/velodyne_points1" hz="10" samples="360" gpu="false" min_angle="-1.57" max_angle="1.57" min_range="0.1">
+    <origin xyz="0.125 0 0.25" rpy="0 0 0" />
+  </xacro:VLP-161>
+
+
+</robot>

@@ -1,0 +1,47 @@
+<launch>
+
+  <!-- launching the gazebo world -->
+  <include file="$(find main_pkg)/launch/empty_world.launch">
+    <arg name="world_name" value="/home/wsl-ros//gazebo_models_worlds_collection/worlds/worlds/warehouse.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+    <arg name="verbose" value="false"/>
+  </include>
+
+  <!-- describing the robot ; xacro  -->
+  <group ns="r1">
+    <arg name="robot_name" default="r1"/>
+    <arg name="robot_position" default="-x -1.0 -y -1.0 -z 0.01 -R 0 -P 0 -Y +0" />
+    <param name="robot_description" command="$(find xacro)/xacro '$(find main_pkg)/xacro/p3dx/pioneer3dx1.xacro'" />
+
+    <!-- spawning the URDF robot -->
+    <node name="urdf_spawner1" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model $(arg robot_name) -param robot_description $(arg robot_position) "/>
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher1">
+        <param name="publish_frequency" type="double" value="30.0"/>
+    </node>
+    
+    <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher1">
+        <param name="publish_frequency" type="double" value="30.0"/>
+    </node>
+  </group> 
+
+  <group ns="r2">
+    <arg name="robot_name" default="r2"/>
+    <arg name="robot_position" default="-x 1.0 -y 1.0 -z 0.01 -R 0 -P 0 -Y -1.57" />
+    <param name="robot_description" command="$(find xacro)/xacro '$(find main_pkg)/xacro/p3dx/pioneer3dx2.xacro'" />
+
+    <!-- spawning the URDF robot -->
+    <node name="urdf_spawner2" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model $(arg robot_name) -param robot_description $(arg robot_position) "/>
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher2">
+        <param name="publish_frequency" type="double" value="30.0"/>
+    </node>
+    
+    <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher2">
+        <param name="publish_frequency" type="double" value="30.0"/>
+    </node>
+  </group> 
+  
+</launch>

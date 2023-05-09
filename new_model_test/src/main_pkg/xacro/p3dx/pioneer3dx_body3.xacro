@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="inertia_tensors3.xacro"/>
+  <xacro:include filename="pioneer3dx_chassis3.xacro"/>
+  <xacro:include filename="battery_block3.xacro"/>
+  <xacro:include filename="pioneer3dx_wheel3.xacro"/>
+  <xacro:include filename="pioneer3dx_swivel3.xacro"/>
+  <xacro:include filename="pioneer3dx_sonar3.xacro"/>
+  <xacro:include filename="pioneer3dx_plugins3.xacro"/>
+
+  <xacro:macro name="pioneer3dx_body3" params="name parent meshes">
+
+    <!-- base_link -->
+    <link name="${parent}"/>
+
+    <!-- Chassis -->
+    <xacro:pioneer_chassis3 name="${name}" parent="base_link3" xyz="0 0 0" rpy="0 0 0"  meshes="${meshes}"/>
+
+    <!-- Front Sonar -->
+    <xacro:pioneer_sonar3 name="sonar3" parent="${name}" xyz="0.109 0 0.209" rpy="0 0 0"  meshes="${meshes}"/>
+
+    <!-- Akku0 -->
+    <xacro:battery_block3 name="battery03" parent="${name}" x="-0.14" y="0.00"  z="0.13" mass="2.5" />
+
+    <!-- Wheels -->
+    <xacro:pioneer_wheel3 side="right" parent="${name}"  xyz="0  0.15 0.09" rpy="0 0 0" radius="0.09" meshes="${meshes}"/>
+    <xacro:pioneer_wheel3 side="left"  parent="${name}"  xyz="0 -0.15 0.09" rpy="0 0 0" radius="0.09" meshes="${meshes}"/>
+    <xacro:pioneer_swivel3 parent="${name}"  xyz="-0.185 0 0.055" rpy="0 0 0" meshes="${meshes}"/>
+
+    <!-- Motor plugin -->
+    <xacro:pioneer3dx_diff_drive3 /> 
+
+    <!-- Joints plugin -->
+    <xacro:pioneer3dx_joints_state_publisher3 />
+
+  </xacro:macro>
+</robot>

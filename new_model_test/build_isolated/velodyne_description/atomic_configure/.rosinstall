@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/wsl-ros/new_model_test/devel_isolated/velodyne_description/setup.sh

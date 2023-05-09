@@ -1,0 +1,8 @@
+prefix=/home/wsl-ros/new_model_test/devel_isolated/velodyne_description
+
+Name: velodyne_description
+Description: Description of velodyne_description
+Version: 1.0.10
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

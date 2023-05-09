@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/wsl-ros/new_model_test/install_isolated/setup.sh

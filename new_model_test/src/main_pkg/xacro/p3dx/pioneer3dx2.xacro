@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="pioneer3dx" >
+
+  <!-- Import Rviz colors -->
+  <xacro:include filename="$(find main_pkg)/xacro/materials.xacro" />
+
+  <!-- Import robot -->
+  <xacro:include filename="$(find main_pkg)/xacro/p3dx/pioneer3dx_body2.xacro"/>
+  <xacro:pioneer3dx_body2 name="chassis2" parent="base_link2" meshes="package://gazebo_plugins/test/multi_robot_scenario/meshes/p3dx"/>
+
+  <!-- Laser -->
+  <xacro:include filename="$(find main_pkg)/xacro/laser/hokuyo2.xacro"/>
+  <xacro:laser2 name="front_laser2" parent="chassis2" xyz="0.125 0 0.25" rpy="0 0 0" meshes="package://gazebo_plugins/test/multi_robot_scenario/meshes/laser"/>
+
+
+  <!-- GPU Laser
+  <xacro:include filename="$(find main_pkg)/xacro/laser/hokuyo_gpu2.xacro"/>
+  <xacro:laser_gpu2 name="front_laser2" parent="chassis2" xyz="0.16 0 0.1" rpy="0 0 0" meshes="package://gazebo_plugins/test/multi_robot_scenario/meshes/laser" />
+    -->
+  <xacro:include filename="$(find main_pkg)/xacro/camera/new_camera2.xacro"/>
+  <xacro:camera2 name="camera2" parent="chassis2" xyz="0.025 -0.015 0.32" rpy="0 0 0"/>
+
+  <!-- Velodyne -->
+  <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf2.xacro"/>
+  <xacro:VLP-162 parent="base_link2" name="velodyne2" topic="/velodyne_points2" hz="10" samples="360" gpu="false" min_angle="-1.57" max_angle="1.57" min_range="0.1">
+    <origin xyz="0.125 0 0.25" rpy="0 0 0" />
+  </xacro:VLP-162>
+
+
+</robot>

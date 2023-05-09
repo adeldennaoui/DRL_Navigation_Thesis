@@ -1,0 +1,47 @@
+<launch>
+<arg name="gui" value="true"/>
+<arg name="second_robot"/>
+<arg name="third_robot"/>
+<arg name="fourth_robot"/>
+<arg name="rviz_on"/>
+
+   <!-- Gazebo  -->
+  <include file="$(find main_pkg)/launch/empty_world.launch" />
+
+  <!-- Robot with diff drive -->
+  <group ns="r1">
+    <include file="$(find main_pkg)/launch/pioneer3dx.gazebo1.launch">
+      <arg name="robot_name" value="r1"/>
+      <arg name="robot_position" value="-x 1.0 -y 1.0 -z 0.01 -R 0 -P 0 -Y +1.57" />
+    </include>
+  </group>
+
+  <group if="$(arg second_robot)" ns="r2">
+    <include file="$(find main_pkg)/launch/pioneer3dx.gazebo2.launch">
+    <arg name="robot_name" value="r2"/>
+      <arg name="robot_position" value="-x 1.0 -y -1.0 -z 0.01 -R 0 -P 0 -Y -1.57" />s
+    </include>
+  </group>
+
+  <group if="$(arg third_robot)" ns="r3">
+    <include file="$(find main_pkg)/launch/pioneer3dx.gazebo3.launch">
+      <arg name="robot_name" value="r3"/>
+      <arg name="robot_position" value="-x -1.0 -y -1.0 -z 0.01 -R 0 -P 0 -Y +3.14" />
+    </include>
+  </group>
+
+  <group if="$(arg fourth_robot)" ns="r4">
+    <include file="$(find main_pkg)/launch/pioneer3dx.gazebo4.launch">
+      <arg name="robot_name" value="r4"/>
+      <arg name="robot_position" value="-x -1.0 -y 1.0 -z 0.01 -R 0 -P 0 -Y -1.57" />
+    </include>
+  </group>
+
+  <!-- RVIZ -->
+  <group if="$(arg rviz_on)">
+    <node pkg="rviz" type="rviz" name="rviz1" args="-d $(find main_pkg)/launch/pioneer3dx1.rviz" />
+    <node if="$(arg second_robot)" pkg="rviz" type="rviz" name="rviz2" args="-d $(find main_pkg)/launch/pioneer3dx2.rviz" />
+    <node if="$(arg third_robot)" pkg="rviz" type="rviz" name="rviz3" args="-d $(find main_pkg)/launch/pioneer3dx3.rviz" />
+    <node if="$(arg fourth_robot)" pkg="rviz" type="rviz" name="rviz4" args="-d $(find main_pkg)/launch/pioneer3dx4.rviz" />
+  </group>
+</launch>

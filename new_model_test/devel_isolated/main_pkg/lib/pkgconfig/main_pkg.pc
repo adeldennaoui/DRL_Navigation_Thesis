@@ -1,0 +1,8 @@
+prefix=/home/wsl-ros/new_model_test/devel_isolated/main_pkg
+
+Name: main_pkg
+Description: Description of main_pkg
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
