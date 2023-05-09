@@ -7,3 +7,4 @@ The repository is divided in 2 worspaces:
 2. new_model_test: it has everything (delete devel_isolated and build_isolated, and catkin make in ~/new_model_test from your own machine).
 
 P.S: FORGET ABOUT model_test. I did not update it and I made new_model_test as its replacement (and where everything is).
+P.S: You need to have RTAB_Map installed with all its necessary packages and whatnot.
